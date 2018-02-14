@@ -2,11 +2,8 @@
 using CustomerRecords.Models.Entity;
 using CustomerRecords.Models.ValueObjects;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace CustomerRecords.DataAccess.Repositories
 {
@@ -15,12 +12,16 @@ namespace CustomerRecords.DataAccess.Repositories
     /// </summary>
     /// <typeparam name="TEntity">Type of repository entity</typeparam>
     public class CustomerRepository : IRepository<Customer>
-    {
-        private readonly string filename;
+    {   
+        private readonly IDataSource source;
 
-        public CustomerRepository(string filename)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="source">Source od raw data</param>
+        public CustomerRepository(IDataSource source)
         {
-            this.filename = filename;
+            this.source = source;
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace CustomerRecords.DataAccess.Repositories
         public IEnumerable<Customer> Get()
         {
             // TODO: in real projects i would use AutoMapper for mapping CustomerRecord to Customer
-            return File.ReadAllLines(filename)
+            return source.ReadAll()
                         .Select(x => JsonConvert.DeserializeObject<CustomerRecord>(x))
                         .Select(x => new Customer
                         {
