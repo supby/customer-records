@@ -2,6 +2,7 @@
 using CustomerRecords.Models.Entity;
 using CustomerRecords.Models.ValueObjects;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +22,7 @@ namespace CustomerRecords.DataAccess.Repositories
         /// <param name="source">Source od raw data</param>
         public CustomerRepository(IDataSource source)
         {
-            this.source = source;
+            this.source = source ?? throw new ArgumentNullException("IDataSource is null");
         }
 
         /// <summary>
@@ -29,7 +30,7 @@ namespace CustomerRecords.DataAccess.Repositories
         /// </summary>
         /// <returns>List of Customers</returns>
         public IEnumerable<Customer> Get()
-        {
+        {   
             // TODO: in real projects i would use AutoMapper for mapping CustomerRecord to Customer
             return source.ReadAll()
                         .Select(x => JsonConvert.DeserializeObject<CustomerRecord>(x))

@@ -23,8 +23,8 @@ namespace CustomerRecords.Services
         /// <param name="customerRepository">Instance od customer repository</param>
         public CustomerService(IRepository<Customer> customerRepository, IGeoService geoService)
         {
-            this.customerRepository = customerRepository;
-            this.geoService = geoService;
+            this.customerRepository = customerRepository ?? throw new ArgumentNullException("customerRepository is null");
+            this.geoService = geoService ?? throw new ArgumentNullException("geoService is null");
         }
 
         /// <summary>
@@ -35,6 +35,9 @@ namespace CustomerRecords.Services
         /// <returns>List of Customers</returns>
         public IEnumerable<Customer> Get(GeoCoordinate centerPoint, double radiusKm)
         {
+            if(centerPoint == null)
+                throw new ArgumentNullException("centerPoint is null");
+
             return customerRepository.Get()
                         .Where(x => geoService.GetDistance(centerPoint, x.Coordinate) < radiusKm);
         }

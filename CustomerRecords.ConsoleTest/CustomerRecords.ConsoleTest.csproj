@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerRecords.DataAccess\CustomerRecords.DataAccess.csproj" />
+    <ProjectReference Include="..\CustomerRecords.Models\CustomerRecords.Models.csproj" />
+    <ProjectReference Include="..\CustomerRecords.Services\CustomerRecords.Services.csproj" />
+    <ProjectReference Include="..\CustomerRecords.Tests\CustomerRecords.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="data\customers.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="data\customers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

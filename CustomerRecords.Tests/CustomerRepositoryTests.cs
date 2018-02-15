@@ -1,6 +1,7 @@
 ﻿using CustomerRecords.DataAccess.Interfaces;
 using CustomerRecords.DataAccess.Repositories;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -51,6 +52,12 @@ namespace CustomerRecords.Tests
             var res = target.Get();
 
             Assert.Empty(res);
+        }
+
+        [Fact]
+        public void CreationNullExceptionTest()
+        {
+            Assert.Throws<ArgumentNullException>(() => new CustomerRepository(null));
         }
     }
 }

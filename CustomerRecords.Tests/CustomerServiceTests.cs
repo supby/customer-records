@@ -60,5 +60,25 @@ namespace CustomerRecords.Tests
 
             Assert.Equal(2, res.Count());
         }
+
+        /// <summary>
+        /// Check for exception if dependencies are null
+        /// </summary>
+        [Fact]
+        public void CreateCustomerServiceNullExceptionTest()
+        {
+            Assert.Throws<ArgumentNullException>(() => new CustomerService(null, geoServiceMock.Object));
+            Assert.Throws<ArgumentNullException>(() => new CustomerService(customerRepositoryMock.Object, null));
+        }
+
+        /// <summary>
+        /// Check for exception if centerPoint is null
+        /// </summary>
+        [Fact]
+        public void GetCustomerServiceNullExceptionTest()
+        {
+            Assert.Throws<ArgumentNullException>(() => 
+                new CustomerService(customerRepositoryMock.Object, geoServiceMock.Object).Get(null, 100));
+        }
     }
 }

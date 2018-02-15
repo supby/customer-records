@@ -20,7 +20,13 @@ namespace CustomerRecords.Services
         /// <param name="point2">Coordinates of point 2</param>
         /// <returns>Distnace in km</returns>
         public double GetDistance(GeoCoordinate point1, GeoCoordinate point2)
-        {            
+        {
+            if (point1 == null)
+                throw new ArgumentNullException("point1 is null");
+
+            if (point2 == null)
+                throw new ArgumentNullException("point2 is null");
+
             var dLat = ToRadians(point2.Latitude - point1.Latitude);
             var dLon = ToRadians(point2.Longitude - point1.Longitude);
             var a =

@@ -19,6 +19,9 @@ namespace CustomerRecords.DataAccess.DataSources
         /// <param name="filename">Name of file where is data stored</param>
         public FileDataSource(string filename)
         {
+            if (string.IsNullOrEmpty(filename))
+                throw new ArgumentNullException("filename is null");
+
             this.filename = filename;
         }
 
